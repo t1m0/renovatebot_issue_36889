@@ -23,6 +23,10 @@ jobs:
       - name: Install Renovate CLI
         run: npm install -g renovate
 
+      - name: Verify token validity
+        run: |
+          curl --location 'https://gitlab.com/api/v4/projects/71635084/packages/maven/com/t1m0/t1m0-parentpom/maven-metadata.xml' --header 'Authorization: Bearer ${{ secrets.GITLAB_TOKEN }}'
+
       - name: Setup Maven settings
         run: |
           mkdir -p ~/.m2
