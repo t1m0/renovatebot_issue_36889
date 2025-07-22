@@ -1,0 +1,39 @@
+name: Renovate
+
+on:
+  # Allow manual triggering
+  workflow_dispatch:
+  # Optionally run on push to main branch
+  push:
+    branches:
+      - main
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          
+      - name: Install Renovate CLI
+        run: npm install -g renovate
+
+      - name: Setup Maven settings
+        run: |
+          mkdir -p ~/.m2
+          cp maven-settings.xml ~/.m2/settings.xml
+        
+      - name: Run Renovate
+        env:
+          RENOVATE_CONFIG_FILE: "renovate-config.json"
+          RENOVATE_ONBOARDING_CONFIG: '{"$$schema": "https://docs.renovatebot.com/renovate-schema.json"}'
+          RENOVATE_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
+          RENOVATE_MAVEN_USER_HOME: "~/.m2"
+          LOG_LEVEL: "DEBUG"
+        run: renovate

@@ -1,0 +1,27 @@
+{
+  "platform": "github",
+  "extends": ["group:all", ":disableRateLimiting"],
+  "autodiscover": false,
+  "repositories": ["t1m0/renovatebot_issue_36889"],
+  "hostRules": [
+    {
+      "hostType": "maven",
+      "matchHost": "gitlab.com",
+      "username": "Private-Token",
+      "password": "{{GITLAB_TOKEN}}"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["maven"],
+      "matchPackageNames": [".*t1m0.*"],
+      "registryUrls": [
+        "https://gitlab.com/api/v4/projects/71635084/packages/maven"
+      ]
+    },
+    {
+      "matchDatasources": ["github-releases"],
+      "enabled": false
+    }
+  ]
+}
