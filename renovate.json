@@ -1,3 +1,11 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json"
+  "packageRules": [
+    {
+      "matchDatasources": ["maven"],
+      "matchPackageNames": [".*t1m0.*"],
+      "registryUrls": [
+        "https://gitlab.com/api/v4/projects/71635084/packages/maven"
+      ]
+    }
+  ]
 }
